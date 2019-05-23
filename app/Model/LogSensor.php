@@ -25,4 +25,5 @@ class LogSensor extends Model {
     public function status(){
         return $this->belongsTo('App\Model\TmStatus', 'id_status', 'id');        
     }
+
 }
