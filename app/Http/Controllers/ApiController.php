@@ -89,20 +89,24 @@ class ApiController extends Controller
                 $maxSensor =  LogSensor::whereDate('waktu', date("Y-m-d"))->where('id_lokasi',$item->id)->where('ketinggian_air', LogSensor::whereDate('waktu', date("Y-m-d"))->where('id_lokasi',$item->id)->max('ketinggian_air'))->first();
                 $minSensor =  LogSensor::whereDate('waktu', date("Y-m-d"))->where('id_lokasi',$item->id)->where('ketinggian_air', LogSensor::whereDate('waktu', date("Y-m-d"))->where('id_lokasi',$item->id)->min('ketinggian_air'))->first();
                 $avg = LogSensor::whereDate('waktu', date("Y-m-d"))->where('id_lokasi',$item->id)->avg('ketinggian_air');
-                $hasil[] = array(
-                    'id_lokasi' => $item->id,
-                    'nama' => $item->nama_lokasi,
-                    'now_tinggi' => $dataSensor->ketinggian_air,
-                    'now_time' => date("H-i", strtotime($dataSensor->waktu)),
-                    'max_tinggi' => $maxSensor->ketinggian_air,
-                    'max_time' => date("H-i", strtotime($maxSensor->waktu)),
-                    'min_tinggi' => $minSensor->ketinggian_air,
-                    'min_time' => date("H-i", strtotime($minSensor->waktu)),
-                    'avg' => number_format($avg, 2),
-                    'id_status' => $dataSensor->id_status,
-                    'status' => $dataSensor->status->status,
-
-                );
+                if(!empty($dataSensor) && !empty($maxSensor) && !empty($minSensor)){
+                    $hasil[] = array(
+                        'id_lokasi' => $item->id,
+                        'nama' => $item->nama_lokasi,
+                        'lat' => $item->latitude,
+                        'lng' => $item->longitude,
+                        'now_tinggi' => $dataSensor->ketinggian_air,
+                        'now_time' => date("H-i", strtotime($dataSensor->waktu)),
+                        'max_tinggi' => $maxSensor->ketinggian_air,
+                        'max_time' => date("H-i", strtotime($maxSensor->waktu)),
+                        'min_tinggi' => $minSensor->ketinggian_air,
+                        'min_time' => date("H-i", strtotime($minSensor->waktu)),
+                        'avg' => number_format($avg, 2),
+                        'id_status' => $dataSensor->id_status,
+                        'status' => $dataSensor->status->status,
+    
+                    );
+                }
             }
 
             $this->_status = 200;
@@ -138,7 +142,6 @@ class ApiController extends Controller
                 'avg' => number_format($avg, 2),
                 'id_status' => $dataSensor->id_status,
                 'status' => $dataSensor->status->status,
-
             );
 
             $this->_status = 200;
