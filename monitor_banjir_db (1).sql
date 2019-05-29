@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 23, 2019 at 03:39 PM
+-- Generation Time: May 29, 2019 at 09:23 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.8
 
@@ -68,11 +68,11 @@ CREATE TABLE `log_sensor` (
 --
 
 INSERT INTO `log_sensor` (`id`, `id_lokasi`, `id_status`, `waktu`, `ketinggian_air`) VALUES
-(1, 1, 1, '2019-05-23 00:08:01', '20.00'),
-(2, 1, 3, '2019-05-23 10:08:27', '60.00'),
+(1, 1, 1, '2019-05-29 00:08:01', '20.00'),
+(2, 1, 3, '2019-05-29 10:08:27', '60.00'),
 (3, 1, 2, '2019-05-23 02:08:59', '25.00'),
-(4, 2, 1, '2019-05-23 00:08:01', '20.00'),
-(5, 2, 1, '2019-05-23 10:08:27', '19.00'),
+(4, 2, 1, '2019-05-29 00:08:01', '20.00'),
+(5, 2, 1, '2019-05-29 10:08:27', '19.00'),
 (6, 2, 2, '2019-05-23 02:08:59', '25.00'),
 (7, 1, 2, '2019-05-23 02:24:59', '25.00'),
 (8, 1, 1, '2019-05-23 00:08:01', '20.00'),
@@ -107,8 +107,8 @@ CREATE TABLE `tm_lokasi` (
   `id` int(11) NOT NULL,
   `nama_lokasi` varchar(100) NOT NULL,
   `altitude` varchar(100) DEFAULT NULL,
-  `latitude` varchar(255) DEFAULT NULL,
-  `longitude` varchar(255) DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
   `speed` varchar(255) DEFAULT NULL,
   `heading` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -118,8 +118,8 @@ CREATE TABLE `tm_lokasi` (
 --
 
 INSERT INTO `tm_lokasi` (`id`, `nama_lokasi`, `altitude`, `latitude`, `longitude`, `speed`, `heading`) VALUES
-(1, 'Lokasi A', NULL, NULL, NULL, NULL, NULL),
-(2, 'Lokasi B', NULL, NULL, NULL, NULL, NULL);
+(1, 'Lokasi A', NULL, -7.800729, 110.439426, NULL, NULL),
+(2, 'Lokasi B', NULL, -7.817056, 110.374588, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,8 +142,7 @@ CREATE TABLE `tm_status` (
 INSERT INTO `tm_status` (`id`, `status`, `description`, `min_level`, `max_level`) VALUES
 (1, 'Normal', NULL, '0.00', '20.00'),
 (2, 'Waspada', NULL, '21.00', '50.00'),
-(3, 'Siaga', NULL, '51.00', '80.00'),
-(4, 'Awas', NULL, '81.00', '100.00');
+(3, 'Siaga', NULL, '51.00', '80.00');
 
 --
 -- Indexes for dumped tables

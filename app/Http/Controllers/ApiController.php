@@ -93,8 +93,8 @@ class ApiController extends Controller
                     $hasil[] = array(
                         'id_lokasi' => $item->id,
                         'nama' => $item->nama_lokasi,
-                        'lat' => $item->latitude,
-                        'lng' => $item->longitude,
+                        'lat' => number_format($item->latitude,6),
+                        'lng' => number_format($item->longitude,6),
                         'now_tinggi' => $dataSensor->ketinggian_air,
                         'now_time' => date("H-i", strtotime($dataSensor->waktu)),
                         'max_tinggi' => $maxSensor->ketinggian_air,
@@ -108,12 +108,17 @@ class ApiController extends Controller
                     );
                 }
             }
-
-            $this->_status = 200;
-            $this->_message = 'Berhasil Ambil Lokasi Status';
-            $this->_data = $hasil;
-            $dataResult = $this->output();
-
+            if(empty($hasil)){
+                $this->_status = 203;
+                $this->_message = 'Data Null';
+                $this->_data = $hasil;
+                $dataResult = $this->output();
+            }else{
+                $this->_status = 200;
+                $this->_message = 'Berhasil Ambil Lokasi Status';
+                $this->_data = $hasil;
+                $dataResult = $this->output();
+            }
         }
         return view('api',compact('dataResult'));
     }
